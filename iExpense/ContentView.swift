@@ -8,15 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
-    
-    // How to set state to load from the UserDefaults (SharedPrefs)
-    @State private var tapCount = UserDefaults.standard.integer(forKey: "Tap")
-    
+    // NOTE: even simpler, UserDefaults provides this @AppStorage wrapper we can use instead of @State
+    // Great for simple use cases like this.
+    @AppStorage("tapCount") private var tapCount = 0
+
     var body: some View {
         Button("Tap count: \(tapCount)") {
             tapCount += 1
-            // NOTE: this is how to use the SharedPrefs equivalent.
-            UserDefaults.standard.set(self.tapCount, forKey: "Tap")
         }
     }
 }
