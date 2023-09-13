@@ -13,6 +13,8 @@ struct ContentView: View {
     // NOTE: @StateObject only used when CREATING a class instance. Otherwise use @ObservedObject
     @StateObject var expenses = Expenses()
     
+    @State private var showingAddExpense = false
+    
     var body: some View {
         NavigationStack {
             List {
@@ -24,12 +26,14 @@ struct ContentView: View {
             .navigationTitle("iExpense")
             .toolbar {
                 Button {
-                    let expense = ExpenseItem(name: "Test", type: "Test", amount: 420.69)
-                    expenses.items.append(expense)
+                    showingAddExpense = true
                 } label: {
                     Image(systemName: "plus")
                 }
             }
+        }
+        .sheet(isPresented: $showingAddExpense) {
+            AddExpenseView(expenses: expenses)
         }
     }
     
