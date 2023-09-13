@@ -10,12 +10,13 @@ import SwiftUI
 
 
 struct ContentView: View {
+    // NOTE: @StateObject only used when CREATING a class instance. Otherwise use @ObservedObject
     @StateObject var expenses = Expenses()
     
     var body: some View {
         NavigationStack {
             List {
-                ForEach(expenses.items, id: \.name) { item in
+                ForEach(expenses.items) { item in
                     Text(item.name)
                 }
                 .onDelete(perform: removeItems)
